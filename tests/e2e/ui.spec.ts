@@ -1,6 +1,28 @@
 import { expect, test } from '@playwright/test';
 import { clickTile, clientPointOf, startCity } from './helpers';
 
+test('stacks sound and music on the city, under the bar', async ({ page }) => {
+  await startCity(page, 'city-audio');
+  const sound = page.getByTestId('hud-sound');
+  const music = page.getByTestId('hud-music');
+  await expect(sound).toBeVisible();
+  await expect(music).toBeVisible();
+  await expect(sound).toHaveAccessibleName('Som ligado');
+  await expect(music).toHaveAccessibleName('Música ligada');
+  const soundBox = await sound.boundingBox();
+  const musicBox = await music.boundingBox();
+  const hudBox = await page.getByTestId('hud').boundingBox();
+  expect(soundBox && musicBox && hudBox).toBeTruthy();
+  expect(soundBox!.y).toBeGreaterThanOrEqual(hudBox!.y + hudBox!.height);
+  expect(musicBox!.y).toBeGreaterThanOrEqual(soundBox!.y + soundBox!.height);
+  expect(soundBox!.x).toBeGreaterThan(musicBox!.x - 8);
+  await music.click();
+  await expect(music).toHaveAccessibleName('Música desligada');
+  expect(await page.evaluate(() => window.__cityDebug?.musicState())).toMatchObject({
+    enabled: false,
+  });
+});
+
 test('main menu options reach the HUD and the panels', async ({ page }) => {
   await startCity(page, 'ui', { difficulty: 'easy' });
   await expect(page.getByTestId('hud')).toBeVisible();
