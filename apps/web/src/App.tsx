@@ -5,6 +5,7 @@ import { useStore } from './state/store';
 import { BootScreen, BootView } from './ui/BootScreen';
 import { BudgetPanel } from './ui/BudgetPanel';
 import { ChartsPanel } from './ui/ChartsPanel';
+import { CityAudio } from './ui/CityAudio';
 import { Hud } from './ui/Hud';
 import { Inspector } from './ui/Inspector';
 import { MainMenu } from './ui/MainMenu';
@@ -63,6 +64,7 @@ function Screens({ session }: { session: GameSession }) {
     <>
       <PauseOverlay session={session} />
       <Hud session={session} />
+      <CityAudio session={session} />
       <Toolbar session={session} />
       <Minimap session={session} />
       <TileReadout session={session} />
