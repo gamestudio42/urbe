@@ -67,6 +67,14 @@
         color: #94a3b8;
         font-size: 14px;
       }
+      .studio-splash {
+        display: inline-flex;
+        margin-top: 8px;
+      }
+      .studio-splash img {
+        width: 36px;
+        height: 36px;
+      }
     </style>
   </head>
   <body>
@@ -75,6 +83,9 @@
         <img src="%BASE_URL%favicon.svg" alt="" />
         <strong>URBE</strong>
         <span>Loading…</span>
+        <a class="studio-splash" href="https://gamestudio42.github.io/" aria-label="Game Studio 42">
+          <img src="%BASE_URL%studio-badge.svg" alt="" width="36" height="36" />
+        </a>
       </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>

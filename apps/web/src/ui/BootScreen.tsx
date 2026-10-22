@@ -4,6 +4,7 @@ import { prefersReducedMotion } from '../motion';
 import type { BootState, GameSession } from '../state/session';
 import { useStore } from '../state/store';
 import { Logo } from './Logo';
+import { StudioMark } from './StudioMark';
 
 const FADE_MS = 300;
 
@@ -55,6 +56,7 @@ export function BootView({
       >
         <div className="boot-progress-fill" style={{ width: `${percent}%` }} />
       </div>
+      <StudioMark placement="boot" />
     </div>
   );
 }

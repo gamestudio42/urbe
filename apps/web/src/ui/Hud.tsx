@@ -2,6 +2,7 @@ import type { RciValues, Speed } from '@city/shared';
 import { formatMoney, formatNumber, months, useStrings } from '../i18n';
 import type { GameSession, PanelId } from '../state/session';
 import { useStore } from '../state/store';
+import { StudioMark } from './StudioMark';
 
 const SPEEDS: Speed[] = [0, 1, 2, 3];
 const SPEED_ICONS = ['❚❚', '▶', '▶▶', '▶▶▶'] as const;
@@ -88,6 +89,7 @@ export function Hud({ session }: { session: GameSession }) {
         {panelButton('overlays', h.overlays)}
         {panelButton('system', h.menu)}
       </nav>
+      <StudioMark placement="play" />
     </header>
   );
 }

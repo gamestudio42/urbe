@@ -5,6 +5,7 @@ import type { GameSession } from '../state/session';
 import { useStore } from '../state/store';
 import { LocaleSelect } from './LocaleSelect';
 import { Logo } from './Logo';
+import { StudioMark } from './StudioMark';
 
 const SIZES = [64, 96, 128] as const;
 
@@ -65,8 +66,11 @@ export function MainMenu({ session, extra }: { session: GameSession; extra?: Rea
   return (
     <div className="main-menu" data-testid="main-menu">
       <div className="menu-chrome">
-        <LocaleSelect session={session} className="menu-locale" />
-        <SoundToggle session={session} />
+        <StudioMark placement="menu" />
+        <div className="menu-chrome-actions">
+          <LocaleSelect session={session} className="menu-locale" />
+          <SoundToggle session={session} />
+        </div>
       </div>
       <div className="menu-card">
         <h1 className="menu-title">
