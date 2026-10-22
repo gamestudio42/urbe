@@ -362,11 +362,64 @@ input[type='range'] {
 .menu-chrome {
   position: fixed;
   top: 16px;
+  left: 16px;
   right: 16px;
   z-index: 41;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.menu-chrome-actions {
+  display: flex;
+  align-items: center;
   gap: 10px;
+}
+
+/* Studio seal. The phosphor green is the studio colour, not a city token. */
+.studio-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.studio-mark img {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+.studio-mark:hover,
+.studio-mark:focus-visible {
+  color: var(--text);
+}
+
+.studio-mark-menu {
+  padding: 4px 12px 4px 4px;
+  background: rgba(18, 26, 38, 0.74);
+  border: 1px solid rgba(90, 110, 140, 0.45);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+.boot-screen .studio-mark {
+  margin-top: 6px;
+}
+
+/* Sits in the HUD, after Menu. The map stays clear of a floating seal. */
+.studio-mark-play {
+  flex: none;
+  margin-left: 8px;
+}
+
+.studio-mark-play img {
+  width: 30px;
+  height: 30px;
 }
 
 .menu-locale {

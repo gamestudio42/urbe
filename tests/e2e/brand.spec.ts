@@ -53,6 +53,19 @@ test('the page carries the Urbe name and icon, and boots before the menu', async
   await expect(page.getByTestId('main-menu')).toBeVisible();
   await expect(page.getByTestId('boot-screen')).toHaveCount(0);
   await expect(page.locator('.menu-title')).toHaveAccessibleName(/Urbe/);
+  const mark = page.getByTestId('main-menu').getByTestId('studio-mark');
+  await expect(mark).toBeVisible();
+  await expect(mark).toHaveAttribute('href', 'https://gamestudio42.github.io/');
+  await expect(mark).toHaveAccessibleName('Game Studio 42');
+});
+
+test('the studio seal stays in the HUD after the city is founded', async ({ page }) => {
+  await openMenu(page);
+  await foundCity(page, 'Estúdio');
+  const mark = page.getByTestId('hud').getByTestId('studio-mark');
+  await expect(mark).toBeVisible();
+  await expect(mark).toHaveAttribute('href', 'https://gamestudio42.github.io/');
+  await expect(mark).toHaveAccessibleName('Game Studio 42');
 });
 
 test('the menu shows a live city behind it', async ({ page }) => {
