@@ -17,6 +17,8 @@
   An isometric city builder that runs in the browser.
   Zone the land, connect power and water, keep the budget alive —
   then watch demand, traffic and disasters do the rest.
+  Urbe is the civic city: growth comes from roads, zones, power, water and the budget,
+  and the pressure is traffic, fire and flood.
   No install. Interface in English, Portuguese, Spanish, French and German.
 </p>
 
@@ -43,6 +45,14 @@
 </p>
 
 <p align="center">
+  <img src="docs/screenshots/charts.jpg" alt="The charts panel on demand: residential, commercial and industrial" width="920">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/disaster.jpg" alt="The fire station beside the road, and the bar reporting one fire in the city" width="920">
+</p>
+
+<p align="center">
   <a href="https://gamestudio42.github.io/urbe/">
     <img src="docs/screenshots/play.svg" alt="Play Urbe in the browser" height="56">
   </a>
@@ -52,6 +62,7 @@
 
 - **Play in the browser.** Open the link and found a city. Nothing to download.
 - **You create the conditions.** Roads, zones, plants and pumps. The simulator grows — or abandons — the lots.
+- **A civic city.** Traffic, fire and flood are the pressure on roads, zones, power, water and the budget.
 - **A living city.** Cars follow traffic, chimneys smoke, water shimmers, fire engines roll out.
 - **A mayor's desk.** Taxes, department funding, charts, thematic maps and a tile inspector that tells you *why* a lot is not growing.
 - **Original soundtrack.** Calm lo-fi, synthesized on the fly — a slower piece in the menu, another in the city.
@@ -59,11 +70,22 @@
 
 ## Play
 
-| | |
-| --- | --- |
-| **Live game** | [gamestudio42.github.io/urbe](https://gamestudio42.github.io/urbe/) |
-| **Hotkeys** | `R` road · `1–6` zones · `E` power · `T` water · `P` pause · `M` sound |
-| **Language** | English, Portuguese, Spanish, French, German · code and docs in English |
+Open **[gamestudio42.github.io/urbe](https://gamestudio42.github.io/urbe/)**.
+Choose a seed, map size and difficulty, then found the city. The first visit follows your
+browser language; the interface supports English, Portuguese, Spanish, French and German.
+Code and docs stay in English.
+
+| Action                                   | Shortcut    |
+| ---------------------------------------- | ----------- |
+| Inspect / road                           | `Q` / `R`   |
+| Zones / remove zone                      | `1–6` / `0` |
+| Power / water                            | `E` / `T`   |
+| Pause / sound                            | `P` / `M`   |
+| Underground / grid                       | `U` / `G`   |
+| Cancel the current tool or close a panel | `Esc`       |
+
+The Menu lists every shortcut. Cities autosave in the browser; export and import
+`.city.json` to keep a portable copy.
 
 ## Develop
 
