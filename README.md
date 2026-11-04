@@ -17,6 +17,8 @@
   An isometric city builder that runs in the browser.
   Zone the land, connect power and water, keep the budget alive —
   then watch demand, traffic and disasters do the rest.
+  Urbe is the civic city: growth comes from roads, zones, power, water and the budget,
+  and the pressure is traffic, fire and flood.
   No install. Interface in English, Portuguese, Spanish, French and German.
 </p>
 
@@ -43,6 +45,14 @@
 </p>
 
 <p align="center">
+  <img src="docs/screenshots/charts.jpg" alt="The charts panel on demand: residential, commercial and industrial" width="920">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/disaster.jpg" alt="The fire station beside the road, and the bar reporting one fire in the city" width="920">
+</p>
+
+<p align="center">
   <a href="https://gamestudio42.github.io/urbe/">
     <img src="docs/screenshots/play.svg" alt="Play Urbe in the browser" height="56">
   </a>
@@ -52,18 +62,30 @@
 
 - **Play in the browser.** Open the link and found a city. Nothing to download.
 - **You create the conditions.** Roads, zones, plants and pumps. The simulator grows — or abandons — the lots.
+- **A civic city.** Traffic, fire and flood are the pressure on roads, zones, power, water and the budget.
 - **A living city.** Cars follow traffic, chimneys smoke, water shimmers, fire engines roll out.
-- **A mayor's desk.** Taxes, department funding, charts, thematic maps and a tile inspector that tells you *why* a lot is not growing.
+- **A mayor's desk.** Taxes, department funding, charts, thematic maps and a tile inspector that tells you _why_ a lot is not growing.
 - **Original soundtrack.** Calm lo-fi, synthesized on the fly — a slower piece in the menu, another in the city.
 - **Your city stays with you.** Autosave in the browser, plus export and import of `.city.json` files.
 
 ## Play
 
-| | |
-| --- | --- |
-| **Live game** | [gamestudio42.github.io/urbe](https://gamestudio42.github.io/urbe/) |
-| **Hotkeys** | `R` road · `1–6` zones · `E` power · `T` water · `P` pause · `M` sound |
-| **Language** | English, Portuguese, Spanish, French, German · code and docs in English |
+Open **[gamestudio42.github.io/urbe](https://gamestudio42.github.io/urbe/)**.
+Choose a seed, map size and difficulty, then found the city. The first visit follows your
+browser language; the interface supports English, Portuguese, Spanish, French and German.
+Code and docs stay in English.
+
+| Action                                   | Shortcut    |
+| ---------------------------------------- | ----------- |
+| Inspect / road                           | `Q` / `R`   |
+| Zones / remove zone                      | `1–6` / `0` |
+| Power / water                            | `E` / `T`   |
+| Pause / sound                            | `P` / `M`   |
+| Underground / grid                       | `U` / `G`   |
+| Cancel the current tool or close a panel | `Esc`       |
+
+The Menu lists every shortcut. Cities autosave in the browser; export and import
+`.city.json` to keep a portable copy.
 
 ## Develop
 
@@ -80,8 +102,15 @@ Or with Docker: `docker compose up`.
 | `pnpm test:e2e` | Playwright end-to-end tests                                 |
 | `pnpm sim`      | Headless simulation over presets and seeds                  |
 | `pnpm bench`    | Tick timing benchmark (`--strict` for CI)                   |
+| `pnpm desktop`  | Linux window around a separate `BASE_PATH=./` build         |
 
-Every push to `main` publishes `apps/web/dist` to GitHub Pages. To host it elsewhere:
+Every push to `main` publishes `apps/web/dist` to GitHub Pages from the `gh-pages` branch.
+That build is unchanged by the desktop shell: `pnpm desktop` writes a second copy under
+`apps/desktop/www` with `BASE_PATH=./`. Browser saves stay in IndexedDB. The window keeps
+its own profile. Cities still move between them as `.city.json`. `snapcraft pack` builds
+the snap from source. The store banner is `snap/store/banner.jpg`: upload that file, still
+named `banner.jpg`, in the Snap Store listing. It is not inside the snap. To host the site
+elsewhere:
 
 ```sh
 BASE_PATH=/path/ pnpm build
@@ -91,7 +120,7 @@ Docs: [architecture](docs/architecture.md) · [simulation spec](docs/simulation-
 
 ## Fork & remix
 
-Urbe is MIT-licensed. Fork it, change the rules, ship your own city on GitHub Pages.
+Urbe is free software under the AGPL. Fork it, change the rules, and ship your own city on GitHub Pages. If you run a modified version for other people, including as a website, you must offer them its source under the same licence.
 
 ```sh
 git clone https://github.com/gamestudio42/urbe.git
@@ -100,8 +129,8 @@ pnpm install
 pnpm dev
 ```
 
-Enable Pages on your fork (the workflow in `.github/workflows/deploy.yml` already
-publishes `apps/web/dist`). Or host the build anywhere:
+Enable Pages on your fork from the `gh-pages` branch (`.github/workflows/pages.yml`
+already publishes `apps/web/dist`). Or host the build anywhere:
 
 ```sh
 BASE_PATH=/your-path/ pnpm build
@@ -112,6 +141,12 @@ and [discussions](https://github.com/gamestudio42/urbe/discussions).
 
 ## Licence
 
-Original code, procedural sprites and synthesized sound and music, MIT licence.
+Urbe is free software under the GNU Affero General Public License, version 3 or any later
+version ([`AGPL-3.0-or-later`](LICENSE)). Copyright (c) 2026 Marcel Savegnago. If you run a
+modified version for other people, including as a website or over a network, you must offer
+them its source under the same licence. Releases up to commit 53ba60a were published under MIT
+and remain available under those terms.
+
+Original code, procedural sprites and synthesized sound and music.
 Micropolis (GPLv3) and OpenSC2K were studied as references for behaviour only;
 no code or assets were copied.

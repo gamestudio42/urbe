@@ -1,5 +1,8 @@
 node_modules/
 dist/
+apps/desktop/www/
+apps/desktop/release/
+*.snap
 coverage/
 reports/
 playwright-report/

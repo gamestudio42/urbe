@@ -1,0 +1,65 @@
+# Urbe as a snap, built from source: installs the workspace, runs
+# `pnpm --filter @city/desktop dist:dir` and packs release/linux-unpacked. The Snap Store's
+# Builds tab builds and releases it to edge on every push to main; .github/workflows/snap.yml
+# builds the same file and smoke-tests it.
+#
+# The store banner is not part of the snap. snap/gui is only the desktop entry and the icon,
+# which snapcraft copies to meta/gui. Upload snap/store/banner.jpg in the listing media and
+# keep the name banner.jpg: 3840×1280, 3:1, under the 2 MB limit. snap/store/banner.png is
+# the same image and is over that limit, so it is not the file to upload.
+name: urbe
+title: Urbe
+base: core22
+adopt-info: urbe
+icon: snap/gui/icon.png
+summary: You set the conditions. The city decides the rest.
+description: |
+  An isometric city builder. Zone the land, connect power and water, and keep
+  the budget alive. Traffic, fire and flood are the pressure. The interface is
+  in Portuguese, English, Spanish, French and German.
+license: AGPL-3.0-or-later
+website: https://gamestudio42.github.io/urbe/
+source-code: https://github.com/gamestudio42/urbe
+issues: https://github.com/gamestudio42/urbe/issues
+contact: talkgamestudio42@gmail.com
+grade: stable
+confinement: strict
+compression: lzo
+
+architectures:
+  - build-on: amd64
+
+apps:
+  urbe:
+    # Chromium's own sandbox cannot run inside strict confinement; the snap sandbox replaces it.
+    command: app/urbe --no-sandbox
+    desktop: meta/gui/urbe.desktop
+    extensions: [gnome]
+    plugs:
+      - browser-support
+      - opengl
+      - audio-playback
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+
+parts:
+  urbe:
+    plugin: nil
+    source: .
+    build-snaps:
+      - node/22/stable
+    stage-packages:
+      - libnspr4
+      - libnss3
+      - libxss1
+    override-pull: |
+      craftctl default
+      craftctl set version="$(sed -n 's/^  "version": "\(.*\)",$/\1/p' apps/desktop/package.json)"
+    override-build: |
+      # The node snap is read-only: install the pinned pnpm next to the build.
+      npm install --prefix "$CRAFT_PART_BUILD/.tools" "$(sed -n 's/^  "packageManager": "\(.*\)",$/\1/p' package.json)"
+      export PATH="$CRAFT_PART_BUILD/.tools/node_modules/.bin:$PATH"
+      pnpm install --frozen-lockfile
+      pnpm --filter @city/desktop dist:dir
+      mkdir -p "$CRAFT_PART_INSTALL/app"
+      cp -a apps/desktop/release/linux-unpacked/. "$CRAFT_PART_INSTALL/app/"
