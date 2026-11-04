@@ -10,22 +10,6 @@ import { fileURLToPath } from 'node:url';
 import type { ElectronApplication, Page } from 'playwright';
 import { DIST_HOST, DIST_SCHEME } from '../apps/desktop/src/distFiles';
 
-declare global {
-  interface Window {
-    __cityDebug?: {
-      isReady(): boolean;
-      musicState(): { playing: boolean };
-      findFlatArea(width: number, height: number): { x: number; y: number } | null;
-      setSpeed(speed: number): void;
-      centerOnTile(x: number, y: number): void;
-      tileToClient(x: number, y: number): { x: number; y: number } | null;
-      getHover(): { x: number; y: number } | null;
-      getTile(x: number, y: number): { road?: boolean } | null;
-      listSaves(): Promise<unknown[]>;
-    };
-  }
-}
-
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const desktopDir = path.join(root, 'apps', 'desktop');
 const requireFromDesktop = createRequire(path.join(desktopDir, 'package.json'));
