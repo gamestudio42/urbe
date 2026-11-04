@@ -10,6 +10,7 @@ backend: the whole game runs on the client, and saves live in IndexedDB or in ex
 | `packages/shared`     | Tile constants, command and message types, balance tables, save schema | nothing            |
 | `packages/simulation` | Deterministic engine: world, systems, commands, persistence, scenarios | `@city/shared`     |
 | `apps/web`            | Vite + React UI, PixiJS renderer, Web Worker host, IndexedDB saves     | shared, simulation |
+| `apps/desktop`        | Electron window for that web build. No city rules                      | the built site     |
 | `tools/`              | Headless simulation reports and benchmarks (run with `tsx`)            | shared, simulation |
 | `tests/`              | Unit, integration, scenario (Vitest) and end-to-end (Playwright) tests | everything         |
 
@@ -19,6 +20,28 @@ and `tsx` compile them on the fly, so there is no package build step.
 The simulation package compiles with `lib: ["ES2023"]` and no ambient types, so any accidental
 use of DOM or Node APIs fails the type check. ESLint additionally bans `Math.random`, `Date`,
 `performance` and the transcendental `Math` functions there (see [determinism](#determinism)).
+
+## Publish
+
+`pnpm dev` serves Urbe on port 5173 with `base: '/'`. `pnpm build` writes `apps/web/dist`.
+GitHub Pages publishes that folder from the `gh-pages` branch. The workflow builds it with
+`BASE_PATH=./`, so the same files work at the site root and under a pull request preview.
+Neither command reads the desktop output.
+
+`pnpm desktop` builds the web app again with `BASE_PATH=./` into `apps/desktop/www`, then
+opens it in Electron. The window loads `urbe://app/` so the module worker can start.
+That scheme only serves files inside `apps/desktop/www`. The shell refuses other
+navigation. Browser saves and window saves stay apart. Export and import still use
+`.city.json`.
+
+The snap is built from source. `snap/snapcraft.yaml` installs the workspace, runs
+`pnpm --filter @city/desktop dist:dir` and packs `apps/desktop/release/linux-unpacked`.
+`.github/workflows/snap.yml` builds that file and smoke-tests it. The desktop entry
+points its icon at `${SNAP}/meta/gui/icon.png`, because a bare icon name is looked up
+in the theme and the app grid then shows a missing-file placeholder. Snapcraft copies
+only `snap/gui` into the package. The store banner is listing media, not a snap file:
+upload `snap/store/banner.jpg` under the name `banner.jpg` (3840×1280, 3:1, under 2 MB).
+`snap/store/banner.png` is the same image and is over that limit.
 
 ## Runtime topology
 

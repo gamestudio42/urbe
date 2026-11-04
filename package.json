@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Isometric city builder inspired by classic city simulation games, running in the browser.",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "packageManager": "pnpm@10.27.0",
   "engines": {
     "node": ">=22"
@@ -13,10 +13,13 @@
     "dev": "pnpm --filter @city/web dev",
     "build": "pnpm --filter @city/web build",
     "preview": "pnpm --filter @city/web preview",
+    "desktop:build": "BASE_PATH=./ pnpm --filter @city/web exec vite build --outDir ../desktop/www --emptyOutDir && pnpm --filter @city/desktop build",
+    "desktop": "pnpm desktop:build && pnpm --filter @city/desktop start",
+    "desktop:smoke": "pnpm desktop:build && tsx tools/desktop-smoke.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc -p packages/shared && tsc -p packages/simulation && tsc -p apps/web && tsc -p tsconfig.json",
+    "typecheck": "tsc -p packages/shared && tsc -p packages/simulation && tsc -p apps/web && tsc -p apps/desktop && tsc -p tsconfig.json",
     "test": "vitest run",
     "test:simulation": "vitest run --config vitest.scenarios.config.ts",
     "test:e2e": "playwright test",

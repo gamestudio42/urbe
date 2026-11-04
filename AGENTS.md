@@ -36,6 +36,7 @@ pnpm test             # unit + integration tests (Vitest)
 pnpm test:simulation  # long scenario tests (Vitest)
 pnpm test:e2e         # Playwright (builds and serves the app)
 pnpm build            # production build of apps/web
+pnpm desktop          # Electron window; separate BASE_PATH=./ build, Pages unchanged
 pnpm sim --preset balanced --months 120 --seeds 1,2,3   # headless JSON reports
 pnpm sim --list       # simulation presets
 pnpm bench            # tick timing benchmark (128×128 grid city); --strict fails on budgets
@@ -65,6 +66,8 @@ Never declare a feature done just because it compiles.
 ## Layout
 
 ```
+apps/desktop/   Electron shell. Serves apps/desktop/www over urbe://app. No city rules.
+snap/           snapcraft.yaml, desktop entry, icon, and the store banner
 apps/web/src/
   renderer/   Pixi isometric renderer, camera, picking, procedural sprites, overlays,
               animation/ (cosmetic cars, smoke, water glints, fire engines)
@@ -89,7 +92,7 @@ packages/simulation/src/
 packages/shared/src/
   types/ commands/ balance/ schemas/ protocol/ util/
 tests/{unit,scenarios,e2e,helpers}
-tools/{headless-sim.ts,benchmark.ts}
+tools/{headless-sim.ts,benchmark.ts,desktop-smoke.ts}
 ```
 
 UI conventions: every interactive element that tests touch has a `data-testid`; E2E helpers in

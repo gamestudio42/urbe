@@ -18,6 +18,8 @@ export default defineConfig(
       'coverage/**',
       'playwright-report/**',
       'test-results/**',
+      'apps/desktop/www/**',
+      'apps/desktop/release/**',
     ],
   },
   js.configs.recommended,
@@ -56,7 +58,13 @@ export default defineConfig(
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ['tools/**/*.ts', 'tests/**/*.ts', '*.config.{js,ts}', 'apps/web/vite.config.ts'],
+    files: [
+      'tools/**/*.ts',
+      'tests/**/*.ts',
+      '*.config.{js,ts}',
+      'apps/web/vite.config.ts',
+      'apps/desktop/src/**/*.ts',
+    ],
     languageOptions: { globals: globals.node },
   },
 );

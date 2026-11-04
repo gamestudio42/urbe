@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Urbe
+Comment=You set the conditions. The city decides the rest.
+Exec=urbe
+Icon=${SNAP}/meta/gui/icon.png
+Type=Application
+Categories=Game;Simulation;
+StartupWMClass=urbe
+Terminal=false

@@ -1,5 +1,7 @@
 node_modules
 dist
+apps/desktop/www
+apps/desktop/release
 coverage
 reports
 references
