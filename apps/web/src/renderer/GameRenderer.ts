@@ -21,6 +21,7 @@ import {
 import { prefersReducedMotion } from '../motion';
 import { HEIGHT_STEP, pickTile, tileCenter, tileQuad, vertexToScreen, type Point } from './iso';
 import { SpriteFactory } from './sprites';
+import { TouchGestures, type TouchEffect } from './touchGestures';
 
 export const CHUNK_SIZE = 16;
 const REDRAW_BUDGET = 12;
@@ -67,7 +68,7 @@ const HIGHLIGHT_COLORS = {
 } as const;
 
 export interface RendererInput {
-  /** Called with tile coordinates (or null) on left-button events. */
+  /** Called with tile coordinates (or null) on left-button events and on a touch tap. */
   onPointer?(kind: 'down' | 'move' | 'up', tile: Point | null, event: PointerEvent): void;
   onHover?(tile: Point | null): void;
   onCamera?(): void;
@@ -98,6 +99,8 @@ export class GameRenderer {
   private highlightDirty = false;
   private input: RendererInput = {};
   private panning: { x: number; y: number } | null = null;
+  /** One-finger pan, tap, and two-finger pinch. Mouse pointers never reach it. */
+  private readonly touches = new TouchGestures();
   private readonly listeners = new AbortController();
   private readonly keys = new Set<string>();
   /** Seconds into the menu camera loop, or null outside the menu. */
@@ -189,6 +192,7 @@ export class GameRenderer {
       this.attract = { time: 0, still: prefersReducedMotion() };
       this.keys.clear();
       this.panning = null;
+      this.touches.reset();
       this.setHover(null);
     } else {
       this.attract = null;
@@ -512,8 +516,20 @@ export class GameRenderer {
 
   private attachInput(canvas: HTMLCanvasElement): void {
     canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+    // The page must not scroll or zoom while a finger is on the map. `touch-action: none`
+    // covers modern browsers; this listener covers older ones that still emit touch events.
+    canvas.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+    for (const type of ['gesturestart', 'gesturechange']) {
+      canvas.addEventListener(type, (event) => event.preventDefault(), { passive: false });
+    }
     canvas.addEventListener('pointerdown', (e) => {
       canvas.setPointerCapture(e.pointerId);
+      if (e.pointerType === 'touch') {
+        this.panning = null;
+        this.applyTouch(this.touches.down(e.pointerId, e.clientX, e.clientY), e);
+        return;
+      }
+      this.touches.reset();
       if (e.button === 1 || e.button === 2 || (e.button === 0 && this.keys.has(' '))) {
         this.panning = { x: e.clientX, y: e.clientY };
         return;
@@ -521,6 +537,10 @@ export class GameRenderer {
       if (e.button === 0) this.input.onPointer?.('down', this.pick(e.clientX, e.clientY), e);
     });
     canvas.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') {
+        this.applyTouch(this.touches.move(e.pointerId, e.clientX, e.clientY), e);
+        return;
+      }
       if (this.panning) {
         this.camera.pan(e.clientX - this.panning.x, e.clientY - this.panning.y);
         this.panning = { x: e.clientX, y: e.clientY };
@@ -532,6 +552,10 @@ export class GameRenderer {
       this.input.onPointer?.('move', tile, e);
     });
     const end = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') {
+        this.applyTouch(this.touches.up(e.pointerId), e);
+        return;
+      }
       if (this.panning) {
         this.panning = null;
         return;
@@ -539,7 +563,10 @@ export class GameRenderer {
       if (e.button === 0) this.input.onPointer?.('up', this.pick(e.clientX, e.clientY), e);
     };
     canvas.addEventListener('pointerup', end);
-    canvas.addEventListener('pointercancel', () => (this.panning = null));
+    canvas.addEventListener('pointercancel', (e) => {
+      if (e.pointerType === 'touch') this.touches.cancel(e.pointerId);
+      else this.panning = null;
+    });
     canvas.addEventListener('pointerleave', () => this.setHover(null));
     canvas.addEventListener(
       'wheel',
@@ -572,6 +599,31 @@ export class GameRenderer {
       },
     );
     window.addEventListener('blur', () => this.keys.clear(), { signal });
+  }
+
+  /**
+   * Applies a touch gesture. A tap becomes a down+up on the same tile so tools place or
+   * select; a drag pans and never paints. Pinch zoom keeps the midpoint under the fingers.
+   */
+  private applyTouch(effect: TouchEffect | null, event: PointerEvent): void {
+    if (!effect) return;
+    if (effect.type === 'pan') {
+      this.camera.pan(effect.dx, effect.dy);
+      this.input.onCamera?.();
+      return;
+    }
+    if (effect.type === 'zoom') {
+      const rect = this.app.canvas.getBoundingClientRect();
+      if (effect.dx !== 0 || effect.dy !== 0) this.camera.pan(effect.dx, effect.dy);
+      if (effect.factor !== 1) {
+        this.camera.zoomAt(effect.factor, effect.x - rect.left, effect.y - rect.top);
+      }
+      this.input.onCamera?.();
+      return;
+    }
+    const tile = this.pick(effect.x, effect.y);
+    this.input.onPointer?.('down', tile, event);
+    this.input.onPointer?.('up', tile, event);
   }
 
   private driftCamera(attract: { time: number; still: boolean }, world: World): void {
