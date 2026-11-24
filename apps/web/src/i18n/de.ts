@@ -52,11 +52,14 @@ export const de = {
     powerLine: 'Ziehen zum Zeichnen. Zonen und Gebäude leiten bereits Strom.',
     pipe: 'Ziehen zum Zeichnen. Untergrundansicht ist an.',
     zoneResLight: 'Ziehe ein Rechteck auf ebenem Gelände.',
-    zoneResDense: 'Ziehe ein Rechteck auf ebenem Gelände. Braucht Wasser, um über Stufe 2 zu wachsen.',
+    zoneResDense:
+      'Ziehe ein Rechteck auf ebenem Gelände. Braucht Wasser, um über Stufe 2 zu wachsen.',
     zoneComLight: 'Ziehe ein Rechteck auf ebenem Gelände.',
-    zoneComDense: 'Ziehe ein Rechteck auf ebenem Gelände. Braucht Wasser, um über Stufe 2 zu wachsen.',
+    zoneComDense:
+      'Ziehe ein Rechteck auf ebenem Gelände. Braucht Wasser, um über Stufe 2 zu wachsen.',
     zoneIndLight: 'Ziehe ein Rechteck auf ebenem Gelände.',
-    zoneIndDense: 'Ziehe ein Rechteck auf ebenem Gelände. Braucht Wasser, um über Stufe 2 zu wachsen.',
+    zoneIndDense:
+      'Ziehe ein Rechteck auf ebenem Gelände. Braucht Wasser, um über Stufe 2 zu wachsen.',
     dezone: 'Ziehen, um leere Zonen zu entfernen.',
     demolish: 'Entfernt eine Schicht pro Grundstück: Gebäude, Straße/Leitung, Zone, Bäume.',
     level: 'Ziehen: ebnet auf die Höhe des ersten Grundstücks.',
@@ -253,14 +256,17 @@ export const de = {
     delete: 'Löschen',
     confirmDelete: (name: string) => `Spielstand „${name}“ löschen?`,
     autosave: 'Autospeichern',
-    autosaveHint: 'Die Stadt wird jede Spielminute und beim Zurückkehren ins Menü automatisch gespeichert.',
+    autosaveHint:
+      'Die Stadt wird jede Spielminute und beim Zurückkehren ins Menü automatisch gespeichert.',
     saved: 'Stadt gespeichert.',
     loaded: (name: string) => `${name} geladen.`,
-    migrated: (version: number) => `Spielstand der Version ${version} auf die aktuelle Version umgewandelt.`,
+    migrated: (version: number) =>
+      `Spielstand der Version ${version} auf die aktuelle Version umgewandelt.`,
     exported: 'Datei exportiert.',
     slotInfo: (population: string, funds: string) => `${population} Einw. · ${funds}`,
     quota: 'Kein Speicherplatz. Lösche alte Spielstände oder exportiere die Stadt in eine Datei.',
-    unavailable: 'Der Browserspeicher ist nicht verfügbar (privater Modus?). Nutze Datei exportieren.',
+    unavailable:
+      'Der Browserspeicher ist nicht verfügbar (privater Modus?). Nutze Datei exportieren.',
     missing: 'Die Daten dieses Spielstands fehlen. Er wurde aus der Liste entfernt.',
     failed: 'Die Stadt konnte nicht gespeichert werden.',
     loadFailed: 'Die Stadt konnte nicht geladen werden:',
@@ -289,6 +295,7 @@ export const de = {
     unlockAt: (population: string) => `Freigeschaltet ab ${population} Einw.`,
     paused: 'Pausiert',
     pausedHint: 'P oder ▶ zum Fortsetzen',
+    pausedHintTouch: 'Tippe auf ▶ zum Fortsetzen',
     bankrupt: 'BANKROTT',
     debt: 'Verschuldet',
     fires: (n: number) => `${n} ${n === 1 ? 'Brand' : 'Brände'}`,
@@ -384,30 +391,44 @@ export const de = {
       {
         title: 'Willkommen, Bürgermeister!',
         text: 'Ziehe mit der rechten Taste, um die Kamera zu bewegen, und zoome mit dem Mausrad. Gründen wir die Stadt.',
+        touch:
+          'Ziehe mit einem Finger, um die Kamera zu bewegen, und zoome mit zwei Fingern. Gründen wir die Stadt.',
       },
       {
         title: 'Eine Straße zum Rand',
         text: 'Wähle Straße (R) und zeichne einen Weg, der den Kartenrand berührt: er bringt regionale Arbeitskräfte und Jobs.',
+        touch:
+          'Wähle Straße und tippe Felder bis zum Kartenrand: der Weg bringt regionale Arbeitskräfte und Jobs.',
       },
       {
         title: 'Wohngebiete',
         text: 'Wähle Wohngebiet (1) und ziehe ein Rechteck an der Straße. Grundstücke bis 3 Felder von einer Straße können wachsen.',
+        touch:
+          'Wähle Wohngebiet und tippe Felder an der Straße. Grundstücke bis 3 Felder von einer Straße können wachsen.',
       },
       {
         title: 'Arbeitsplätze',
         text: 'Lege auch Industrie (5) und Gewerbe (3) nahe der Straße an, aber nicht direkt an die Häuser.',
+        touch:
+          'Lege auch Industrie und Gewerbe nahe der Straße an, aber nicht direkt an die Häuser.',
       },
       {
         title: 'Strom',
         text: 'Setze ein Kraftwerk und verbinde es mit Stromleitung (E) mit den Zonen. Nachbarzonen leiten Strom weiter.',
+        touch:
+          'Setze ein Kraftwerk und verbinde es mit Stromleitung mit den Zonen. Nachbarzonen leiten Strom weiter.',
       },
       {
         title: 'Die Stadt wachsen lassen',
         text: 'Hebe die Pause auf (P) und beobachte die Nachfragebalken oben. Die ersten Bewohner kommen in wenigen Monaten.',
+        touch:
+          'Hebe die Pause auf und beobachte die Nachfragebalken oben. Die ersten Bewohner kommen in wenigen Monaten.',
       },
       {
         title: 'Den Haushalt im Blick',
         text: 'Öffne Haushalt, um Steuern und Ausgaben anzupassen. Untersuche (Q) ein Grundstück, um zu sehen, warum es nicht wächst.',
+        touch:
+          'Öffne Haushalt, um Steuern und Ausgaben anzupassen. Untersuche ein Grundstück, um zu sehen, warum es nicht wächst.',
       },
     ],
   },
@@ -422,7 +443,8 @@ export const de = {
     disasterEnded: (name: string) => `${name}: Lage wieder normal.`,
     brownout: 'Zu wenig Strom! Baue mehr Kraftwerke.',
     waterShortage: 'Wassermangel! Baue mehr Pumpen.',
-    debt: (months: number) => `Die Kasse ist seit ${months} ${months === 1 ? 'Monat' : 'Monaten'} im Minus.`,
+    debt: (months: number) =>
+      `Die Kasse ist seit ${months} ${months === 1 ? 'Monat' : 'Monaten'} im Minus.`,
     bankrupt: 'Die Stadt ist bankrott! Passe Steuern und Ausgaben an, um die Kasse zu retten.',
     recovered: 'Die Stadtfinanzen haben sich erholt.',
     milestone: (population: string) => `Meilenstein: ${population} Einwohner!`,
@@ -445,5 +467,7 @@ export const de = {
     music: 'Hintergrundmusik',
     animations: 'Animationen (Autos, Rauch, Wasser)',
     help: 'Kürzel: Q untersuchen · R Straße · 1–6 Zonen · 0 Zone entfernen · E Strom · T Wasser · B abreißen · N ebnen · H anheben · F Bäume · P Pause · M Ton · U Untergrund · G Raster · Esc abbrechen',
+    helpTouch:
+      'Ziehe mit einem Finger, um die Kamera zu bewegen, und zoome mit zwei Fingern. Tippe ein Feld an, um zu bauen oder zu untersuchen. Die Werkzeuge sind links.',
   },
 } satisfies Strings;

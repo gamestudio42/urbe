@@ -52,11 +52,14 @@ export const fr = {
     powerLine: 'Glissez pour tracer. Les zones et bâtiments conduisent déjà l’électricité.',
     pipe: 'Glissez pour tracer. Vue souterraine activée.',
     zoneResLight: 'Glissez un rectangle sur un terrain plat.',
-    zoneResDense: 'Glissez un rectangle sur un terrain plat. Il faut de l’eau pour dépasser le niveau 2.',
+    zoneResDense:
+      'Glissez un rectangle sur un terrain plat. Il faut de l’eau pour dépasser le niveau 2.',
     zoneComLight: 'Glissez un rectangle sur un terrain plat.',
-    zoneComDense: 'Glissez un rectangle sur un terrain plat. Il faut de l’eau pour dépasser le niveau 2.',
+    zoneComDense:
+      'Glissez un rectangle sur un terrain plat. Il faut de l’eau pour dépasser le niveau 2.',
     zoneIndLight: 'Glissez un rectangle sur un terrain plat.',
-    zoneIndDense: 'Glissez un rectangle sur un terrain plat. Il faut de l’eau pour dépasser le niveau 2.',
+    zoneIndDense:
+      'Glissez un rectangle sur un terrain plat. Il faut de l’eau pour dépasser le niveau 2.',
     dezone: 'Glissez pour retirer les zones vides.',
     demolish: 'Retire une couche par parcelle : bâtiment, route/ligne, zone, arbres.',
     level: 'Glissez : aplanit à la hauteur de la première parcelle.',
@@ -253,14 +256,18 @@ export const fr = {
     delete: 'Supprimer',
     confirmDelete: (name: string) => `Supprimer la sauvegarde « ${name} » ?`,
     autosave: 'Sauvegarde automatique',
-    autosaveHint: 'La ville est sauvegardée automatiquement chaque minute de jeu et au retour au menu.',
+    autosaveHint:
+      'La ville est sauvegardée automatiquement chaque minute de jeu et au retour au menu.',
     saved: 'Ville sauvegardée.',
     loaded: (name: string) => `${name} chargée.`,
-    migrated: (version: number) => `Sauvegarde de la version ${version} convertie vers la version actuelle.`,
+    migrated: (version: number) =>
+      `Sauvegarde de la version ${version} convertie vers la version actuelle.`,
     exported: 'Fichier exporté.',
     slotInfo: (population: string, funds: string) => `${population} hab. · ${funds}`,
-    quota: 'Plus de place pour sauvegarder. Supprimez d’anciennes sauvegardes ou exportez la ville.',
-    unavailable: 'Le stockage du navigateur n’est pas disponible (mode privé ?). Utilisez Exporter un fichier.',
+    quota:
+      'Plus de place pour sauvegarder. Supprimez d’anciennes sauvegardes ou exportez la ville.',
+    unavailable:
+      'Le stockage du navigateur n’est pas disponible (mode privé ?). Utilisez Exporter un fichier.',
     missing: 'Les données de cette sauvegarde sont introuvables. Elle a été retirée de la liste.',
     failed: 'Impossible de sauvegarder la ville.',
     loadFailed: 'Impossible de charger la ville :',
@@ -289,6 +296,7 @@ export const fr = {
     unlockAt: (population: string) => `Se débloque à ${population} hab.`,
     paused: 'En pause',
     pausedHint: 'P ou ▶ pour continuer',
+    pausedHintTouch: 'Touchez ▶ pour continuer',
     bankrupt: 'EN FAILLITE',
     debt: 'Endettée',
     fires: (n: number) => `${n} ${n === 1 ? 'incendie' : 'incendies'}`,
@@ -305,7 +313,8 @@ export const fr = {
     debtWarning: (months: number) =>
       `Caisse négative depuis ${months} ${months === 1 ? 'mois' : 'mois'}. Après 12 mois, la ville fait faillite.`,
     bankrupt: 'La ville est en faillite : aucun chantier tant que la caisse n’est pas positive.',
-    taxHint: 'Au-dessus de 7 %, la demande baisse ; en dessous, elle croît, mais les recettes diminuent.',
+    taxHint:
+      'Au-dessus de 7 %, la demande baisse ; en dessous, elle croît, mais les recettes diminuent.',
   },
   charts: {
     title: 'Historique de la ville',
@@ -324,7 +333,12 @@ export const fr = {
       crime: 'Criminalité',
       landValue: 'Valeur foncière',
     },
-    tabs: { people: 'Population', money: 'Finances', demand: 'Demande', environment: 'Environnement' },
+    tabs: {
+      people: 'Population',
+      money: 'Finances',
+      demand: 'Demande',
+      environment: 'Environnement',
+    },
   },
   overlayPanel: {
     title: 'Cartes thématiques',
@@ -384,30 +398,44 @@ export const fr = {
       {
         title: 'Bienvenue, maire !',
         text: 'Glissez avec le bouton droit pour déplacer la caméra et utilisez la molette pour zoomer. Fondons la ville.',
+        touch:
+          'Glissez avec un doigt pour déplacer la caméra et pincez avec deux doigts pour zoomer. Fondons la ville.',
       },
       {
         title: 'Une route jusqu’au bord',
         text: 'Choisissez Route (R) et tracez une voie qui touche le bord de la carte : elle amène travailleurs et emplois de la région.',
+        touch:
+          'Choisissez Route et touchez des parcelles jusqu’au bord de la carte : la voie amène travailleurs et emplois de la région.',
       },
       {
         title: 'Zones résidentielles',
         text: 'Choisissez Résidentiel (1) et glissez un rectangle le long de la route. Les parcelles à 3 cases d’une voie peuvent grandir.',
+        touch:
+          'Choisissez Résidentiel et touchez des parcelles le long de la route. Les parcelles à 3 cases d’une voie peuvent grandir.',
       },
       {
         title: 'Emplois',
         text: 'Créez aussi des zones industrielles (5) et commerciales (3) près de la route, mais pas collées aux maisons.',
+        touch:
+          'Créez aussi des zones industrielles et commerciales près de la route, mais pas collées aux maisons.',
       },
       {
         title: 'Énergie',
         text: 'Placez une centrale et reliez-la aux zones avec Ligne électrique (E). Les zones voisines se transmettent l’énergie.',
+        touch:
+          'Placez une centrale et reliez-la aux zones avec Ligne électrique. Les zones voisines se transmettent l’énergie.',
       },
       {
         title: 'Laissez la ville grandir',
         text: 'Relancez (P) et suivez les barres de demande en haut. Les premiers habitants arrivent en quelques mois.',
+        touch:
+          'Relancez et suivez les barres de demande en haut. Les premiers habitants arrivent en quelques mois.',
       },
       {
         title: 'Surveillez le budget',
         text: 'Ouvrez Budget pour ajuster impôts et dépenses. Utilisez Inspecter (Q) sur une parcelle pour voir pourquoi elle ne grandit pas.',
+        touch:
+          'Ouvrez Budget pour ajuster impôts et dépenses. Utilisez Inspecter sur une parcelle pour voir pourquoi elle ne grandit pas.',
       },
     ],
   },
@@ -445,5 +473,7 @@ export const fr = {
     music: 'Musique d’ambiance',
     animations: 'Animations (voitures, fumée, eau)',
     help: 'Raccourcis : Q inspecter · R route · 1–6 zones · 0 retirer zone · E énergie · T eau · B démolir · N aplanir · H rehausser · F arbres · P pause · M son · U souterrain · G grille · Échap annuler',
+    helpTouch:
+      'Glissez avec un doigt pour déplacer la caméra et pincez avec deux doigts pour zoomer. Touchez une parcelle pour construire ou inspecter. Les outils sont à gauche.',
   },
 } satisfies Strings;

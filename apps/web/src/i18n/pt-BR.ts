@@ -291,6 +291,7 @@ export const ptBR = {
     unlockAt: (population: string) => `Desbloqueia com ${population} hab.`,
     paused: 'Pausado',
     pausedHint: 'P ou ▶ para continuar',
+    pausedHintTouch: 'Toque em ▶ para continuar',
     bankrupt: 'FALIDA',
     debt: 'Em dívida',
     fires: (n: number) => `${n} ${n === 1 ? 'foco de incêndio' : 'focos de incêndio'}`,
@@ -386,30 +387,44 @@ export const ptBR = {
       {
         title: 'Bem-vindo, prefeito!',
         text: 'Arraste com o botão direito para mover a câmera e use a roda do mouse para o zoom. Vamos fundar a cidade.',
+        touch:
+          'Arraste com um dedo para mover a câmera e junte dois dedos para o zoom. Vamos fundar a cidade.',
       },
       {
         title: 'Uma estrada até a borda',
         text: 'Escolha Estrada (R) e trace uma via que toque a borda do mapa: ela traz trabalhadores e empregos da região.',
+        touch:
+          'Escolha Estrada e toque os lotes até a borda do mapa: a via traz trabalhadores e empregos da região.',
       },
       {
         title: 'Zonas residenciais',
         text: 'Escolha Residencial (1) e arraste um retângulo junto à estrada. Lotes a até 3 casas de uma via podem crescer.',
+        touch:
+          'Escolha Residencial e toque os lotes junto à estrada. Lotes a até 3 casas de uma via podem crescer.',
       },
       {
         title: 'Empregos',
         text: 'Crie zonas industriais (5) e comerciais (3) também perto da estrada, mas não colados às casas.',
+        touch:
+          'Crie zonas industriais e comerciais também perto da estrada, mas não coladas às casas.',
       },
       {
         title: 'Energia',
         text: 'Coloque uma usina e ligue-a às zonas com Linha de energia (E). Zonas vizinhas conduzem energia entre si.',
+        touch:
+          'Coloque uma usina e ligue-a às zonas com Linha de energia. Zonas vizinhas conduzem energia entre si.',
       },
       {
         title: 'Deixe a cidade crescer',
         text: 'Despause (P) e acompanhe as barras de demanda no topo. Os primeiros moradores chegam em poucos meses.',
+        touch:
+          'Despause e acompanhe as barras de demanda no topo. Os primeiros moradores chegam em poucos meses.',
       },
       {
         title: 'Cuide do orçamento',
         text: 'Abra o Orçamento para ajustar impostos e gastos. Use Inspecionar (Q) em um lote para ver por que ele não cresce.',
+        touch:
+          'Abra o Orçamento para ajustar impostos e gastos. Use Inspecionar em um lote para ver por que ele não cresce.',
       },
     ],
   },
@@ -447,5 +462,7 @@ export const ptBR = {
     music: 'Música ambiente',
     animations: 'Animações (carros, fumaça, água)',
     help: 'Atalhos: Q inspecionar · R estrada · 1–6 zonas · 0 remover zona · E energia · T água · B demolir · N nivelar · H elevar · F árvores · P pausa · M som · U subterrâneo · G grade · Esc cancelar',
+    helpTouch:
+      'Arraste com um dedo para mover a câmera e junte dois dedos para o zoom. Toque um lote para construir ou inspecionar. As ferramentas ficam à esquerda.',
   },
 } satisfies Strings;

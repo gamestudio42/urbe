@@ -1,5 +1,6 @@
 import { BALANCE, PLACEABLE_SPECS, type PlaceableKind } from '@city/shared';
 import { formatMoney, formatNumber, useStrings, type Locale, type Strings } from '../i18n';
+import { useCoarsePointer } from '../pointer';
 import type { GameSession } from '../state/session';
 import { useStore } from '../state/store';
 import { TOOL_GROUPS, TOOLS, type ToolDef } from '../tools/tools';
@@ -40,6 +41,7 @@ function costLabel(tool: ToolDef, t: Strings, locale: Locale): string | null {
 
 export function Toolbar({ session }: { session: GameSession }) {
   const t = useStrings(session.ui);
+  const coarse = useCoarsePointer();
   const locale = useStore(session.ui, (s) => s.locale);
   const active = useStore(session.ui, (s) => s.tool);
   const population = useStore(session.ui, (s) => s.stats?.population ?? 0);
@@ -56,7 +58,7 @@ export function Toolbar({ session }: { session: GameSession }) {
               t.tools[tool.id],
               cost,
               locked && spec ? t.hud.unlockAt(formatNumber(spec.minPopulation, locale)) : null,
-              tool.hotkey ? `${t.ui.shortcut}: ${tool.hotkey.toUpperCase()}` : null,
+              !coarse && tool.hotkey ? `${t.ui.shortcut}: ${tool.hotkey.toUpperCase()}` : null,
             ]
               .filter(Boolean)
               .join(' — ');

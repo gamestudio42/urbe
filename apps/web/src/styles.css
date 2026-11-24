@@ -48,6 +48,13 @@ body,
   touch-action: none;
 }
 
+button,
+input,
+select,
+.locale-trigger {
+  touch-action: manipulation;
+}
+
 button {
   font: inherit;
   color: inherit;
@@ -56,7 +63,7 @@ button {
 .toolbar {
   position: absolute;
   left: 10px;
-  top: 64px;
+  top: calc(var(--hud-height, 52px) + 12px);
   bottom: 150px;
   display: flex;
   flex-direction: column;
@@ -141,7 +148,7 @@ button {
 
 .toasts {
   position: absolute;
-  top: 88px;
+  top: calc(var(--hud-height, 52px) + 36px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -330,9 +337,11 @@ input[type='range'] {
   position: absolute;
   inset: 0;
   z-index: 40;
-  display: grid;
-  place-items: center start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 24px 24px 24px clamp(24px, 5vw, 72px);
   background: linear-gradient(
     90deg,
@@ -345,6 +354,11 @@ input[type='range'] {
 
 .menu-card {
   width: min(460px, 100%);
+  /* Centres the card when it fits. When it is taller than the viewport the auto margins
+     collapse, so the menu itself scrolls and the found-city button stays reachable. */
+  margin-top: auto;
+  margin-bottom: auto;
+  flex-shrink: 0;
   padding: 28px 30px;
   background: rgba(18, 26, 38, 0.74);
   border: 1px solid rgba(90, 110, 140, 0.45);
@@ -539,7 +553,7 @@ input[type='range'] {
 /* Below the bar, mirroring the tool column on the left. */
 .city-audio {
   position: absolute;
-  top: 64px;
+  top: calc(var(--hud-height, 52px) + 12px);
   right: 10px;
   z-index: 10;
   display: flex;
@@ -549,9 +563,22 @@ input[type='range'] {
 
 @media (max-width: 720px) {
   .main-menu {
-    place-items: center;
-    padding: 16px;
+    align-items: center;
+    padding: 72px 16px 24px;
     background: rgba(10, 16, 24, 0.6);
+  }
+}
+
+/* Short viewports (phone landscape) used to centre the card and clip the submit button,
+   because a centred grid item cannot scroll back to its top. Start below the fixed chrome. */
+@media (max-height: 860px) {
+  .main-menu {
+    padding-top: 72px;
+  }
+
+  .menu-card {
+    margin-top: 0;
+    margin-bottom: 24px;
   }
 }
 
@@ -686,6 +713,7 @@ input[type='range'] {
   flex: 1;
   padding: 10px;
   font-size: 15px;
+  scroll-margin: 80px 0 24px;
 }
 
 .saved-cities {
@@ -870,7 +898,7 @@ input[type='range'] {
 
 .paused-banner {
   position: absolute;
-  top: 60px;
+  top: calc(var(--hud-height, 52px) + 8px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -948,7 +976,7 @@ input[type='range'] {
 
 .side-panels {
   position: absolute;
-  top: 64px;
+  top: calc(var(--hud-height, 52px) + 12px);
   right: 10px;
   bottom: 52px;
   width: 340px;
@@ -1213,4 +1241,166 @@ input[type='range'] {
   display: flex;
   justify-content: flex-end;
   gap: 6px;
+}
+
+/* Phones and tablets: the top bar wraps so labels such as "População" stay whole,
+   and the tool rail clears the taller bar. Desktop widths keep the single-row HUD. */
+@media (max-width: 1200px) {
+  .hud {
+    height: auto;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    padding: 6px 8px;
+  }
+
+  .hud-city {
+    min-width: 0;
+    flex: 1 1 8rem;
+  }
+
+  .hud-city strong,
+  .hud-city .muted {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hud-stat {
+    flex: 0 0 auto;
+  }
+
+  .hud-label {
+    letter-spacing: 0;
+  }
+
+  .hud-panels {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-left: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 720px) {
+  .side-panels {
+    left: 8px;
+    right: 8px;
+    width: auto;
+    bottom: 8px;
+  }
+
+  .charts-panel {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .tutorial {
+    left: 8px;
+    right: 8px;
+    bottom: 108px;
+    width: auto;
+    min-width: 0;
+    max-height: 42vh;
+    overflow-y: auto;
+    transform: none;
+  }
+
+  .readout {
+    right: 8px;
+    bottom: 108px;
+    max-width: calc(100vw - 196px);
+  }
+}
+
+@media (max-height: 520px) {
+  .tutorial {
+    left: 124px;
+    right: 8px;
+    bottom: 96px;
+    width: auto;
+    min-width: 0;
+    max-height: 46%;
+    overflow-y: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 720px), (max-height: 520px) {
+  .minimap {
+    width: 168px;
+    height: 84px;
+    padding: 3px;
+  }
+
+  .minimap canvas {
+    left: 3px;
+    top: 3px;
+    width: 168px;
+    height: 84px;
+  }
+
+  .toolbar {
+    bottom: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-chrome {
+    left: 8px;
+    right: 8px;
+  }
+
+  .studio-mark-menu span {
+    display: none;
+  }
+
+  .menu-locale {
+    min-width: 0;
+  }
+}
+
+/* 44px targets and a looser tool rail. Mouse desktops stay on the compact sizes. */
+@media (pointer: coarse) {
+  .menu-sound,
+  .icon-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .locale-trigger,
+  .locale-menu button,
+  .menu-actions .primary,
+  .button,
+  .speed-button {
+    min-height: 44px;
+  }
+
+  .menu-locale .locale-trigger,
+  .locale-trigger {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
+  input:not([type]),
+  input[type='text'],
+  input[type='range'],
+  select {
+    min-height: 44px;
+  }
+
+  .tool-group {
+    grid-template-columns: repeat(2, 44px);
+    gap: 6px;
+  }
+
+  .tool-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .speed-button {
+    min-width: 44px;
+  }
 }

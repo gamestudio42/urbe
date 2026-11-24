@@ -1,6 +1,7 @@
 import type { DisasterKind } from '@city/shared';
 import type { ReactNode } from 'react';
 import { useStrings } from '../i18n';
+import { useCoarsePointer } from '../pointer';
 import type { GameSession } from '../state/session';
 import { useStore } from '../state/store';
 import { LocaleSelect } from './LocaleSelect';
@@ -10,6 +11,7 @@ const DISASTERS: DisasterKind[] = ['fire', 'flood', 'earthquake', 'crisis', 'bla
 
 export function SystemPanel({ session, children }: { session: GameSession; children?: ReactNode }) {
   const t = useStrings(session.ui);
+  const coarse = useCoarsePointer();
   const grid = useStore(session.ui, (s) => s.grid);
   const underground = useStore(session.ui, (s) => s.underground);
   const muted = useStore(session.ui, (s) => s.muted);
@@ -99,7 +101,7 @@ export function SystemPanel({ session, children }: { session: GameSession; child
         />
         {s.animations}
       </label>
-      <p className="muted small">{s.help}</p>
+      <p className="muted small">{coarse ? s.helpTouch : s.help}</p>
       <button
         type="button"
         className="button"

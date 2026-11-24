@@ -101,6 +101,13 @@ flowchart LR
 Only one floating panel is open at a time; the inspector stacks above it in the right column.
 `Esc` closes the panel first, then cancels the tool and clears the selection.
 
+A mouse pans with the middle or right button, or with the left button while Space is held, and
+zooms with the wheel. The left button still paints and selects. A touch pointer pans with one
+finger and zooms by pinching with two; a touch that stays within a few pixels is a tap, so
+placing and selecting still work and a drag never paints. On a coarse pointer the tutorial,
+the pause badge and the menu help use that gesture wording and omit keyboard shortcuts.
+Keyboard panning (WASD and the arrows) is unchanged and is ignored while the menu camera drifts.
+
 **Boot and menu background.** `index.html` carries a static splash (logo and "Carregando…")
 inside `#root`, so something shows before the bundle runs; React replaces it with the boot
 screen, which looks the same plus a step label and a progress bar. `GameSession.boot()` goes
